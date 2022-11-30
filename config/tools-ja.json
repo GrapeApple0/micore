@@ -1,17 +1,7 @@
 {
-	"test":{
-		"url":"test",
-		"title":"test-tool",
-		"description":"試しに作ってあるだけです"
-	},
-	"hoge":{
-		"url":"hoge",
-		"title":"test-tool",
-		"description":"試しに作ってあるだけです"
-	},
-	"fuga":{
-		"url":"fuga",
-		"title":"test-tool",
-		"description":"試しに作ってあるだけです"
+	"redirect":{
+		"url":"/tools/redirect",
+		"title":"リダイレクトチェッカー",
+		"description":"Bitlyや04.siなどの短縮URLのリダイレクト先を表示します"
 	}
 }
