@@ -9,8 +9,10 @@
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-d
 	RewriteRule . /index.php [L]
-	<FilesMatch "^\.(htaccess)$">
-		order allow,deny
+	<Files ".htaccess">
 		deny from all
-	</FilesMatch>
+	</Files>
+	<Files ~ "(\.json)$">
+		deny from all
+	</Files>
 </IfModule>

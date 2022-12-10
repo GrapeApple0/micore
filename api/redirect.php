@@ -1,82 +1,120 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+header("Access-Control-Allow-Headers: Content-Disposition, Content-Type, Content-Length, Accept-Encoding");
+header("Content-type:application/json");
 
-
-try {
-	header('Content-Type: application/json; charset=UTF-8');
-	function expand_url($url)
-	{
-		$headers = get_headers($url, 1);
-
-		if (isset($headers['Location'])) {
-			if (is_array($headers['Location'])) {
-				return make_apath($url, array_pop($headers['Location']));
+function expand_url($url)
+{
+	$headers = get_headers($url, 1);
+	if ($headers['Location'] != null || $headers['location'] != null) {
+		if ($headers['location'] != null) {
+			if (parse_url($url)["host"] == parse_url($headers['location'])["host"]) {
+				return $headers['location'];
 			} else {
-				return make_apath($url, $headers['Location']);
+				return $headers['location'];
+			}
+		} else if ($headers['Location'] != null) {
+			if (parse_url($url)["host"] == parse_url($headers['Location'])["host"]) {
+				return $headers['Location'];
+			} else {
+				return $headers['Location'];
 			}
 		} else {
 			return $url;
 		}
-	}
-
-	function make_apath($base = '', $rel_path = '')
-	{
-		$base = preg_replace('/\/[^\/]+$/', '/', $base);
-		$parse = parse_url($base);
-		if (preg_match('/^https\:\/\//', $rel_path)) {
-			return $rel_path;
-		} elseif (preg_match('/^\/.+/', $rel_path)) {
-			$out = $parse['scheme'] . '://' . $parse['host'] . $rel_path;
-			return $out;
-		}
-		$tmp = array();
-		$a = array();
-		$b = array();
-		$tmp = preg_split("/\//", $parse['path']);
-		foreach ($tmp as $v) {
-			if ($v) {
-				array_push($a, $v);
-			}
-		}
-		$b = preg_split("/\//", $rel_path);
-		foreach ($b as $v) {
-			if (strcmp($v, '') == 0) {
-				continue;
-			} elseif ($v == '.') {
-			} elseif ($v == '..') {
-				array_pop($a);
-			} else {
-				array_push($a, $v);
-			}
-		}
-		$path = join('/', $a);
-		return '/' . $path;
-	}
-
-	if (filter_input(INPUT_POST, "url") != "") {
-		$url = htmlspecialchars(filter_input(INPUT_POST, "url"));
-		if ($url == "" || !preg_match('/https?:\/{2}[\w\/:%#\$&\?\(\)~\.=\+\-]+/', $url)) {
-			$res["status"] = 1;
-			$res["result"] = "Error: URL is not found or not match regex.";
-		} else {
-			$res["status"] = 0;
-			$res["result"] = expand_url($url);
-		}
-		echo json_encode($res);
-	} else if (filter_input(INPUT_GET, "url") != "") {
-		$url = htmlspecialchars(filter_input(INPUT_GET, "url"));
-		if ($url == "" || !preg_match('/https?:\/{2}[\w\/:%#\$&\?\(\)~\.=\+\-]+/', $url)) {
-			$res["status"] = 1;
-			$res["result"] = "Error: URL is not found or not match regex.";
-		} else {
-			$res["status"] = 0;
-			$res["result"] = expand_url($url);
-		}
-		echo json_encode($res);
 	} else {
-		$res["status"] = 1;
-		$res["result"] = "Error: URL is not found.";
-		echo json_encode($res);
+		return $url;
 	}
-} catch (\Throwable $th) {
-	var_dump($th);
+}
+
+function pathToUrl($pPath, $pUrl)
+{
+	$path = trim($pPath);
+	$url = trim($pUrl);
+	if ($path === '') {
+		return $url;
+	}
+	if (
+		stripos($path, 'http://') === 0 ||
+		stripos($path, 'https://') === 0 ||
+		stripos($path, 'mailto:') === 0
+	) {
+		return $path;
+	}
+	if (strpos($path, '#') === 0) {
+		return $url . $path;
+	}
+	$urlAry = explode('/', $url);
+	if (!isset($urlAry[2])) {
+		return false;
+	}
+	if (strpos($path, '//') === 0) {
+		return $urlAry[0] . $path;
+	}
+	$urlHome = $urlAry[0] . '//' . $urlAry[2];
+	if (!$pathBase = parse_url($url, PHP_URL_PATH)) {
+		$pathBase = '/';
+	}
+	if (strpos($path, '?') === 0) {
+		return $urlHome . $pathBase . $path;
+	}
+	if (strpos($path, '/') === 0) {
+		return $urlHome . $path;
+	}
+	$pathBaseAry = array_filter(explode('/', $pathBase), 'strlen');
+	if (strpos(end($pathBaseAry), '.') !== false) {
+		array_pop($pathBaseAry);
+	}
+
+	foreach (explode('/', $path) as $pathElem) {
+		if ($pathElem === '.') {
+			continue;
+		}
+		if ($pathElem === '..') {
+			array_pop($pathBaseAry);
+			continue;
+		}
+		if ($pathElem !== '') {
+			$pathBaseAry[] = $pathElem;
+		}
+	}
+
+	return (substr($path, -1) === '/') ? $urlHome . '/' . implode('/', $pathBaseAry) . '/'
+		: $urlHome . '/' . implode('/', $pathBaseAry);
+}
+
+$res = [];
+if (filter_input(INPUT_POST, "url") != "") {
+	$url = htmlspecialchars(filter_input(INPUT_POST, "url"));
+	if ($url == "" || !preg_match('/https?:\/{2}[\w\/:%#\$&\?\(\)~\.=\+\-]+/', $url)) {
+		$res["status"] = 1;
+		$res["result"] = "Error: URL is not found or not match regex.";
+	} else {
+		$res["status"] = "0";
+		$res["result"] = pathToUrl(expand_url($url), $url);
+		if ($res["result"] == $url) {
+			$res["status"] = "2";
+			$res["result"] = "Info: This URL is not redirect.";
+		}
+	}
+	echo json_encode($res);
+} else if (filter_input(INPUT_GET, "url") != "") {
+	$url = htmlspecialchars(filter_input(INPUT_GET, "url"));
+	if ($url == "" || !preg_match('/https?:\/{2}[\w\/:%#\$&\?\(\)~\.=\+\-]+/', $url)) {
+		$res["status"] = "1";
+		$res["result"] = "Error: URL is not found or not match regex.";
+	} else {
+		$res["status"] = "0";
+		$res["result"] = pathToUrl(expand_url($url), $url);
+		if ($res["result"] == $url) {
+			$res["status"] = 2;
+			$res["result"] = "Info: This URL is not redirect.";
+		}
+	}
+	echo json_encode($res);
+} else {
+	$res["status"] = "1";
+	$res["result"] = "Error: URL is not found.";
+	echo json_encode($res);
 }

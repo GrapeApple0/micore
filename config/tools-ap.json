@@ -1,0 +1,14 @@
+{	
+	"redirect":{
+		"url":"/tools/redirect",
+		"title":"Ridekka Kecka",
+		"description":"Sho Bitly,04.si etka ridekka URl.",
+		"hidden":false
+	},
+	"myip":{
+		"url":"/tools/myip",
+		"title":"IP Kecka",
+		"description":"Sho E IP addressa.La tola uza JavaScript.",
+		"hidden":false
+	}
+}

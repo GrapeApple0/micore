@@ -2,6 +2,25 @@
 	"redirect":{
 		"url":"/tools/redirect",
 		"title":"リダイレクトチェッカー",
-		"description":"Bitlyや04.siなどの短縮URLのリダイレクト先を表示します"
+		"description":"Bitlyや04.siなどの短縮URLのリダイレクト先を表示します。",
+		"hidden":false
+	},
+	"myip":{
+		"url":"/tools/myip",
+		"title":"IPチェッカー",
+		"description":"自分のIPアドレスを表示します。このツールはJavaScriptを使用します。",
+		"hidden":false
+	},
+	"myip-without-js":{
+		"url":"/tools/myip-without-js",
+		"title":"IPチェッカー without js",
+		"description":"自分のIPアドレスを表示します。このツールはJavaScriptを使用しません。",
+		"hidden":true
+	},
+	"fedi-watcher":{
+		"url":"/tools/fedi-watcher",
+		"title":"IPチェッカー without js",
+		"description":"自分のIPアドレスを表示します。このツールはJavaScriptを使用しません。",
+		"hidden":true
 	}
 }

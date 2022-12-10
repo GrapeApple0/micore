@@ -1,0 +1,14 @@
+{
+	"redirect":{
+		"url":"/tools/redirect",
+		"title":"リダイレクトチェッカー",
+		"description":"Bitlyや04.siなどの短縮URLのリダイレクト先を表示します。",
+		"hidden":true
+	},
+	"myip":{
+		"url":"/tools/myip",
+		"title":"IPチェッカー",
+		"description":"自分のIPアドレスを表示します。このツールはJavaScriptを使用します。",
+		"hidden":true
+	}
+}
