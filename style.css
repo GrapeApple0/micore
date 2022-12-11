@@ -1,8 +1,5 @@
-.action {
-	display: flex;
-	justify-content: flex-end;
-	background-color: inherit;
-	border-top: 1px solid rgba(160, 160, 160, 0.2);
-	position: relative;
-	padding: 16px 24px;
+@media (max-width: 768px) {
+	.fill-width {
+		width: 100vw !important;
+	}
 }

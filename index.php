@@ -21,10 +21,12 @@ $theme = json_decode($theme_json, true);
 $lang = filter_input(INPUT_COOKIE, "lang");
 if ($lang == "" || !file_exists(__DIR__ . "/config/tools-$lang.json")) {
 	setcookie("lang", "ja", path: "/");
+	header("location:" . "/");
+	exit;
 } else {
 	setcookie("lang", $lang, path: "/");
 }
-
+$lang = filter_input(INPUT_COOKIE, "lang");
 if (!file_exists(__DIR__ . "/config/tools-$lang.json")) {
 	http_response_code(500);
 	echo "Error:'tools-$lang.json' is not found.";
@@ -52,6 +54,7 @@ $tools = json_decode($tools_json, true);
 	<?php } ?>
 	<link rel="shortcut icon" href="<?php echo $settings["favicon"]; ?>" type="image/x-icon">
 	<link href="https://unpkg.com/@primer/css@^20.2.4/dist/primer.css" rel="stylesheet" />
+	<link href="https://<?php echo $settings["domain"] ?>/style.css" rel="stylesheet" />
 	<title><?php echo $settings["name"]; ?></title>
 	<style>
 		body {
@@ -134,7 +137,7 @@ $tools = json_decode($tools_json, true);
 			<div class="container-lg clearfix">
 				<?php foreach ($tools as $key => $value) { ?>
 					<?php if ($value["hidden"] == false) { ?>
-						<div class="col-sm-12 col-md-6 col-xl-4 float-left p-4">
+						<div class="fill-width col-md-12 col-lg-6 col-xl-4 float-left p-4">
 							<div class="Box color-shadow-small">
 								<div class="Box-row">
 									<h3 class="m-0"><?php echo $value["title"] ?></h3>
@@ -155,24 +158,23 @@ $tools = json_decode($tools_json, true);
 			</div>
 		<?php } else if (explode("/", $url)[0] == "donate") { ?>
 			<div class="d-flex flex-column flex-items-center flex-md-items-center">
-				<div class="col-0 d-flex flex-items-center">
-					<img src="https://misskey.04.si/files/f6f9a4b0-495d-4037-b896-f93c82be6dc3" alt="icon" style="width:250px;height: 250px; border-radius:250px;" />
-				</div>
-				<div class="col-12 col-md-10 d-flex flex-column flex-justify-center flex-items-center pl-md-4">
-					<h1 class="text-normal lh-condensed">Porlam Nicla</h1>
-					<p class="h4 color-fg-muted text-normal mb-2"></p>
-					<p>サイト:<a class="color-fg-muted text-small" href="https://04.si/">https://04.si/</a></p>
-				</div>
+
 			</div>
 		<?php } else if (explode("/", $url)[0] == "about") { ?>
 			<div class="d-flex flex-column flex-items-center flex-md-items-center">
-				<div class="col-0 d-flex flex-items-center">
-					<img src="https://misskey.04.si/files/f6f9a4b0-495d-4037-b896-f93c82be6dc3" alt="icon" style="width:250px;height: 250px; border-radius:250px;" />
-				</div>
 				<div class="col-12 col-md-10 d-flex flex-column flex-justify-center flex-items-center pl-md-4">
-					<h1 class="text-normal lh-condensed">Porlam Nicla</h1>
-					<p class="h4 color-fg-muted text-normal mb-2">Apolen国領ミンムストラ出身のApolen人です</p>
-					<p>サイト:<a class="text-small link" href="https://04.si/">https://04.si/</a></p>
+					<h1 class="text-normal lh-condensed">micore</h1>
+					<p>完全無料の便利ツールです</p>
+					<p>APIも提供しています</p>
+				</div>
+			</div>
+			<div class="d-flex flex-column flex-items-center flex-md-items-center">
+				<div class="col-12 col-md-10 d-flex flex-column flex-justify-center flex-items-center pl-md-4">
+					<h2 class="text-normal lh-condensed">開発者</h2>
+					<img src="https://misskey.04.si/files/f6f9a4b0-495d-4037-b896-f93c82be6dc3" alt="icon" style="width:75px;height: 75px; border-radius:250px;" />
+					<p class="h4 text-normal mb-2">Porlam Nicla</p>
+					<p class="color-fg-muted">メイン開発者</p>
+					<a class="link" href="https://grapeap.pl/">サイト</a>
 				</div>
 			</div>
 		<?php } else if (explode("/", $url)[0] == "tools") { ?>
