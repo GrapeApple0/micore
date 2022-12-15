@@ -3,17 +3,17 @@ session_start();
 ?>
 <div class="d-flex flex-column flex-row flex-items-center">
 	<div class="col-12 d-flex flex-column flex-justify-center flex-items-center pl-md-4">
-		<label>リダイレクトチェッカー</label>
-		<p>Bitlyや04.siなどの短縮URLのリダイレクト先を表示します</p>
+		<label class="primary-text">リダイレクトチェッカー</label>
+		<p class="primary-text">Bitlyや04.siなどの短縮URLのリダイレクト先を表示します</p>
 	</div>
 </div>
 <?php if (filter_input(INPUT_POST, "status") == "" && $_SESSION["resulted"] == null) { ?>
 	<form action="" method="post">
 		<div class="d-flex flex-column flex-row flex-items-center">
-			<div class="col-12 d-flex flex-column flex-justify-center flex-items-center pl-md-4">
-				<input class="form-control col-8" type="url" id="url" name="url" placeholder="URLを入力">
+			<div class="col-12 d-flex flex-justify-center flex-items-center pl-md-4">
+				<input class="col-8 textbox" type="url" id="url" name="url" placeholder="URLを入力">
 				<input type="hidden" name="status" value="send" required>
-				<button class="btn" type="submit">送信</button>
+				<button class="btn secondary-color primary-button" type="submit">送信</button>
 			</div>
 		</div>
 	</form>
@@ -24,9 +24,9 @@ session_start();
 	<div class="d-flex flex-column flex-row flex-items-center">
 		<div class="col-8 d-flex flex-column flex-justify-center flex-items-center pl-md-4">
 			<?php if ($_SESSION["status"] == "2") { ?>
-				<p><?php echo $_SESSION["result"]["url"]; ?>はリダイレクトしないです。</p>
+				<p class="primary-text"><?php echo $_SESSION["result"]["url"]; ?>はリダイレクトしないです。</p>
 			<?php } else { ?>
-				<p><?php echo $_SESSION["result"]["url"]; ?>のリダイレクト先は<a class="link" href="<?php echo $_SESSION["result"]["redirect"]; ?>"><?php echo $_SESSION["result"]["redirect"]; ?></a>です</p>
+				<p class="primary-text"><?php echo $_SESSION["result"]["url"]; ?>のリダイレクト先は<a class="link" href="<?php echo $_SESSION["result"]["redirect"]; ?>"><?php echo $_SESSION["result"]["redirect"]; ?></a>です</p>
 			<?php } ?>
 		</div>
 	</div>

@@ -3,17 +3,17 @@ session_start();
 ?>
 <div class="d-flex flex-column flex-row flex-items-center">
 	<div class="col-12 d-flex flex-column flex-justify-center flex-items-center pl-md-4">
-		<label>RidekkaKecka</label>
-		<p>Sho Bitly,04.si etka ridekka URL.</p>
+		<label class="primary-text">Ridekka Kecka</label>
+		<p class="primary-text">Sho Bitly,04.si etka ridekka URL.</p>
 	</div>
 </div>
 <?php if (filter_input(INPUT_POST, "status") == "" && $_SESSION["resulted"] == null) { ?>
 	<form action="" method="post">
 		<div class="d-flex flex-column flex-row flex-items-center">
-			<div class="col-12 d-flex flex-column flex-justify-center flex-items-center pl-md-4">
-				<input class="form-control col-8" type="url" id="url" name="url" placeholder="Enta URL">
+			<div class="col-12 d-flex flex-justify-center flex-items-center pl-md-4">
+				<input class="col-8 textbox" type="url" id="url" name="url" placeholder="Enta URL">
 				<input type="hidden" name="status" value="send" required>
-				<button class="btn" type="submit">Sinda</button>
+				<button class="btn secondary-color primary-button" type="submit">Senda</button>
 			</div>
 		</div>
 	</form>
@@ -22,11 +22,11 @@ session_start();
 	$_SESSION["resulted"] = null;
 	?>
 	<div class="d-flex flex-column flex-row flex-items-center">
-		<div class="col-8 d-flex flex-column flex-justify-center flex-items-center pl-md-4">
+		<div class="col-8 d-flex flex-justify-center flex-items-center pl-md-4">
 			<?php if ($_SESSION["status"] == "2") { ?>
-				<p><?php echo $_SESSION["result"]["url"]; ?>はリダイレクトしないです。</p>
+				<p class="primary-text"><?php echo $_SESSION["result"]["url"]; ?> ez no ridekka。</p>
 			<?php } else { ?>
-				<p><?php echo $_SESSION["result"]["url"]; ?>のリダイレクト先は<a class="link" href="<?php echo $_SESSION["result"]["redirect"]; ?>"><?php echo $_SESSION["result"]["redirect"]; ?></a>です</p>
+				<p class="primary-text"><?php echo $_SESSION["result"]["url"]; ?> la ridekkar ez<a class="link" href="<?php echo $_SESSION["result"]["redirect"]; ?>"><?php echo $_SESSION["result"]["redirect"]; ?></a></p>
 			<?php } ?>
 		</div>
 	</div>

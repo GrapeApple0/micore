@@ -1,9 +1,16 @@
 {
 	"primary-color":"#ffebee",
-	"secondary-color":"#ffffff",
-	"primary-text":"#000000",
-	"secondary-text":"#f48fb1",
+	"secondary-color":"#161616",
+	"primary-text":"#dedede",
+	"secondary-text":"#f0587c",
 	"link":"#f48fb1",
-	"primary-button":"#ff85ad",
-	"primary-button-hover":"#e65584"
+	"menu":"#323232",
+	"menu-item":"#161616",
+	"primary-button":"#f0587c",
+	"primary-button-hover":"#e65584",
+	"box":"#323232",
+	"textbox":"#dedede",
+	"textbox-bg":"#323232",
+	"textbox-border":"#161616",
+	"textbox-border-focus":"#f0587c"
 }

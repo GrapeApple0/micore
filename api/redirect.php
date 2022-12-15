@@ -101,18 +101,23 @@ if (filter_input(INPUT_POST, "url") != "") {
 	echo json_encode($res);
 } else if (filter_input(INPUT_GET, "url") != "") {
 	$url = htmlspecialchars(filter_input(INPUT_GET, "url"));
-	if ($url == "" || !preg_match('/https?:\/{2}[\w\/:%#\$&\?\(\)~\.=\+\-]+/', $url)) {
-		$res["status"] = "1";
-		$res["result"] = "Error: URL is not found or not match regex.";
-	} else {
-		$res["status"] = "0";
-		$res["result"] = pathToUrl(expand_url($url), $url);
-		if ($res["result"] == $url) {
-			$res["status"] = 2;
-			$res["result"] = "Info: This URL is not redirect.";
+	if (is_string($url)) {
+		if ($url == "" || !preg_match('/https?:\/{2}[\w\/:%#\$&\?\(\)~\.=\+\-]+/', $url)) {
+			$res["status"] = "1";
+			$res["result"] = "Error: URL is not found or not match regex.";
+		} else {
+			$res["status"] = "0";
+			$res["result"] = pathToUrl(expand_url($url), $url);
+			if ($res["result"] == $url) {
+				$res["status"] = 2;
+			}
 		}
+		echo json_encode($res);
+	} else {
+		$res["status"] = "1";
+		$res["result"] = "Error: URL is not string.";
+		echo json_encode($res);
 	}
-	echo json_encode($res);
 } else {
 	$res["status"] = "1";
 	$res["result"] = "Error: URL is not found.";
