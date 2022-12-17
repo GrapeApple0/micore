@@ -1,7 +1,6 @@
 <?php
 session_start();
-$url = rtrim(ltrim(htmlspecialchars($_SERVER["REQUEST_URI"], ENT_QUOTES, 'UTF-8'), "/"), "/");
-
+$url = ltrim(htmlspecialchars($_SERVER["REQUEST_URI"], ENT_QUOTES, 'UTF-8'), "/");
 if (!file_exists(__DIR__ . '/config/settings.json')) {
 	http_response_code(500);
 	echo "Error:'settings.json' is not found.";
@@ -288,6 +287,8 @@ $tools = json_decode($tools_json, true);
 	<footer>
 		<div class="col-12 d-flex flex-justify-center flex-items-center pl-md-4">
 			<label class="primary-text">© 2022 <a href="https://twitter.com/nulland_dev" class="secondary-text">KernelUsami</a></label>
+			<label class="primary-text" style="margin-left: 5px;"><a href="/eula" class="secondary-text">EULA</a></label>
+			<label class="primary-text" style="margin-left: 5px;"><a href="/eula" class="secondary-text">Privacy Policy</a></label>
 		</div>
 	</footer>
 
