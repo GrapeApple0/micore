@@ -286,9 +286,9 @@ $tools = json_decode($tools_json, true);
 
 	<footer>
 		<div class="col-12 d-flex flex-justify-center flex-items-center pl-md-4">
-			<label class="primary-text">© 2022 <a href="https://twitter.com/nulland_dev" class="secondary-text">KernelUsami</a></label>
-			<label class="primary-text" style="margin-left: 5px;"><a href="/eula" class="secondary-text">EULA</a></label>
-			<label class="primary-text" style="margin-left: 5px;"><a href="/eula" class="secondary-text">Privacy Policy</a></label>
+			<label class="primary-text text-normal">© 2022 <a href="https://twitter.com/nulland_dev" class="link">Porlam Nicla</a></label>
+			<label class="primary-text text-normal" style="margin-left: 5px;"><a href="/eula" class="link">EULA</a></label>
+			<label class="primary-text text-normal" style="margin-left: 5px;"><a href="/eula" class="link">Privacy Policy</a></label>
 		</div>
 	</footer>
 
