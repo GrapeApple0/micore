@@ -3,7 +3,7 @@
 		<label class="primary-text">IPチェッカー</label>
 		<p class="primary-text">自分のIPアドレスを表示します</p>
 		<script>
-			fetch('https://v4.mico.re/myip.php')
+			fetch('https://v4.mico.re/myip')
 				.then(function(response) {
 					return response.text();
 				})
@@ -14,7 +14,7 @@
 					document.getElementById("ipv4-addr").innerHTML = "IPv4:None";
 				});
 
-			fetch('https://v6.mico.re/myip.php')
+			fetch('https://v6.mico.re/myip')
 				.then(function(response) {
 					return response.text();
 				})

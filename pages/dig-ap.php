@@ -1,7 +1,7 @@
 <div class="d-flex flex-column flex-row flex-items-center">
 	<div class="col-8 d-flex flex-column flex-justify-center flex-items-center pl-md-4">
-		<label class="primary-text">IPKecka</label>
-		<p class="primary-text">Sho E IP addressa.La tola uza JavaScript.</p>
+		<label class="primary-text">IPチェッカー</label>
+		<p class="primary-text">自分のIPアドレスを表示します</p>
 		<script>
 			fetch('https://v4.mico.re/myip')
 				.then(function(response) {
@@ -27,9 +27,6 @@
 		</script>
 		<div class="col-sm-12 col-md-6 col-xl-4 float-left p-4">
 			<p class="mb-0 primary-text" id="ipv4-addr">IPv4</p>
-		</div>
-		<div class="col-sm-12 col-md-6 col-xl-4 float-left p-4">
-			<p class="mb-0 primary-text" id="ipv6-addr">IPv6</p>
 		</div>
 	</div>
 </div>

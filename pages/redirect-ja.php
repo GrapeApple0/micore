@@ -24,7 +24,7 @@ session_start();
 				<?php
 				$rurl = ltrim($url, "tools/redirect/");
 				if (preg_match('/https?:\/{2}[\w\/:%#\$&\?\(\)~\.=\+\-]+/', $rurl)) {
-					$req_url = "https://mico.re/api/redirect.php";
+					$req_url = "https://mico.re/api/redirect";
 					$postdata = array("url" => $rurl);
 					$ch = curl_init($req_url);
 					curl_setopt($ch, CURLOPT_POST, true);
